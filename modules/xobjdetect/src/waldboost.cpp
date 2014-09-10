@@ -184,6 +184,11 @@ vector<int> WaldBoostImpl::train(const Mat& data_, const Mat& labels_)
         Stump s;
         int feature_ind = s.train(data, labels, weights);
         cout << "feature_ind " << feature_ind << endl;
+        if (feature_ind == 0)
+        {
+            cout << "bail out by feature_ind " << feature_ind << endl;
+            break;
+        }
         stumps_.push_back(s);
         int ind = feature_indices_pool[feature_ind];
         feature_indices_pool.erase(feature_indices_pool.begin() + feature_ind);
