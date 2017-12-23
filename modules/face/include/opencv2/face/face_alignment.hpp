@@ -17,23 +17,23 @@ public:
         * \brief Constructor
         */
         Params();
-        /// cascade_depth This stores the deapth of cascade used for training.
+        //! cascade_depth This stores the deapth of cascade used for training.
         unsigned long cascade_depth;
-        /// tree_depth This stores the max height of the regression tree built.
+        //! tree_depth This stores the max height of the regression tree built.
         unsigned long tree_depth;
-        /// num_trees_per_cascade_level This stores number of trees fit per cascade level.
+        //! num_trees_per_cascade_level This stores number of trees fit per cascade level.
         unsigned long num_trees_per_cascade_level;
-        /// learning_rate stores the learning rate in gradient boosting, also reffered as shrinkage.
+        //! learning_rate stores the learning rate in gradient boosting, also reffered as shrinkage.
         float learning_rate;
-        /// oversampling_amount stores number of initialisations used to create training samples.
+        //! oversampling_amount stores number of initialisations used to create training samples.
         unsigned long oversampling_amount;
-        /// num_test_coordinates stores number of test coordinates.
+        //! num_test_coordinates stores number of test coordinates.
         unsigned long num_test_coordinates;
-        /// lambda stores a value to calculate probability of closeness of two coordinates.
+        //! lambda stores a value to calculate probability of closeness of two coordinates.
         float lambda;
-        /// num_test_splits stores number of random test splits generated.
+        //! num_test_splits stores number of random test splits generated.
         unsigned long num_test_splits;
-        /// configfile stores the name of the file containing the values of training parameters
+        //! configfile stores the name of the file containing the values of training parameters
         String configfile;
     };
     CV_WRAP static Ptr<FacemarkKazemi> create();
