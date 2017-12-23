@@ -11,32 +11,33 @@ namespace face{
 class CV_EXPORTS_W FacemarkKazemi : public Algorithm
 {
 public:
-    struct CV_EXPORTS_W_SIMPLE Params
+    struct CV_EXPORTS Params
     {
         /**
         * \brief Constructor
         */
-        CV_PROP Params();
+        Params();
         /// cascade_depth This stores the deapth of cascade used for training.
-        CV_PROP_RW unsigned long cascade_depth;
+        unsigned long cascade_depth;
         /// tree_depth This stores the max height of the regression tree built.
-        CV_PROP_RW unsigned long tree_depth;
+        unsigned long tree_depth;
         /// num_trees_per_cascade_level This stores number of trees fit per cascade level.
-        CV_PROP_RW unsigned long num_trees_per_cascade_level;
+        unsigned long num_trees_per_cascade_level;
         /// learning_rate stores the learning rate in gradient boosting, also reffered as shrinkage.
-        CV_PROP_RW float learning_rate;
+        float learning_rate;
         /// oversampling_amount stores number of initialisations used to create training samples.
-        CV_PROP_RW unsigned long oversampling_amount;
+        unsigned long oversampling_amount;
         /// num_test_coordinates stores number of test coordinates.
-        CV_PROP_RW unsigned long num_test_coordinates;
+        unsigned long num_test_coordinates;
         /// lambda stores a value to calculate probability of closeness of two coordinates.
-        CV_PROP_RW float lambda;
+        float lambda;
         /// num_test_splits stores number of random test splits generated.
-        CV_PROP_RW unsigned long num_test_splits;
+        unsigned long num_test_splits;
         /// configfile stores the name of the file containing the values of training parameters
-        CV_PROP_RW String configfile;
+        String configfile;
     };
-    CV_WRAP static Ptr<FacemarkKazemi> create(const FacemarkKazemi::Params &parameters = FacemarkKazemi::Params());
+    CV_WRAP static Ptr<FacemarkKazemi> create();
+    static Ptr<FacemarkKazemi> create(const FacemarkKazemi::Params &parameters);
     virtual ~FacemarkKazemi();
 
     /// @brief training the facemark model, input are the file names of image list and landmark annotation
