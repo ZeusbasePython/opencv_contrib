@@ -11,32 +11,32 @@ namespace face{
 class CV_EXPORTS_W FacemarkKazemi : public Algorithm
 {
 public:
-    struct CV_EXPORTS Params
+    struct CV_EXPORTS_W_SIMPLE Params
     {
         /**
         * \brief Constructor
         */
-        Params();
+        CV_PROP Params();
         /// cascade_depth This stores the deapth of cascade used for training.
-        unsigned long cascade_depth;
+        CV_PROP_RW unsigned long cascade_depth;
         /// tree_depth This stores the max height of the regression tree built.
-        unsigned long tree_depth;
+        CV_PROP_RW unsigned long tree_depth;
         /// num_trees_per_cascade_level This stores number of trees fit per cascade level.
-        unsigned long num_trees_per_cascade_level;
+        CV_PROP_RW unsigned long num_trees_per_cascade_level;
         /// learning_rate stores the learning rate in gradient boosting, also reffered as shrinkage.
-        float learning_rate;
+        CV_PROP_RW float learning_rate;
         /// oversampling_amount stores number of initialisations used to create training samples.
-        unsigned long oversampling_amount;
+        CV_PROP_RW unsigned long oversampling_amount;
         /// num_test_coordinates stores number of test coordinates.
-        unsigned long num_test_coordinates;
+        CV_PROP_RW unsigned long num_test_coordinates;
         /// lambda stores a value to calculate probability of closeness of two coordinates.
-        float lambda;
+        CV_PROP_RW float lambda;
         /// num_test_splits stores number of random test splits generated.
-        unsigned long num_test_splits;
+        CV_PROP_RW unsigned long num_test_splits;
         /// configfile stores the name of the file containing the values of training parameters
-        String configfile;
+        CV_PROP_RW String configfile;
     };
-    static Ptr<FacemarkKazemi> create(const FacemarkKazemi::Params &parameters = FacemarkKazemi::Params());
+    CV_WRAP static Ptr<FacemarkKazemi> create(const FacemarkKazemi::Params &parameters = FacemarkKazemi::Params());
     virtual ~FacemarkKazemi();
 
     /// @brief training the facemark model, input are the file names of image list and landmark annotation
@@ -54,13 +54,13 @@ public:
     /** @brief This function is used to load the trained model..
     *@param filename A variable of type cv::String which stores the name of the file in which trained model is stored.
     */
-    virtual void loadModel(String filename)=0;
+    CV_WRAP virtual void loadModel(String filename)=0;
     /** @brief This functions retrieves a centered and scaled face shape, according to the bounding rectangle.
     *@param image A variable of type cv::InputArray which stores the image whose landmarks have to be found
     *@param faces A variable of type cv::InputArray which stores the bounding boxes of faces found in a given image.
     *@param landmarks A variable of type cv::InputOutputArray which stores the landmarks of all the faces found in the image
     */
-    virtual bool fit( InputArray image, InputArray faces, InputOutputArray landmarks )=0;//!< from many ROIs
+    CV_WRAP virtual bool fit( InputArray image, InputArray faces, OutputArray landmarks )=0;//!< from many ROIs
     /// set the custom face detector
     virtual bool setFaceDetector(bool(*f)(InputArray , OutputArray, void*), void* userData)=0;
     /// get faces using the custom detector
