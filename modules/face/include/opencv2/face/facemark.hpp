@@ -342,16 +342,14 @@ public:
     facemark->loadModel("../data/lbf.model");
     @endcode
     */
-    virtual void loadModel(String model)=0;
+    CV_WRAP virtual void loadModel(String model)=0;
     // virtual void saveModel(String fs)=0;
 
-    /** @brief Trains a Facemark algorithm using the given dataset.
+    /** @brief Fits landmark points to faces.
 
     @param image Input image.
-    @param faces Output of the function which represent region of interest of the detected faces.
-    Each face is stored in cv::Rect container.
+    @param faces A vector of cv::Rect, one per face, from previous face detection.
     @param landmarks The detected landmark points for each faces.
-    @param config Algorithm specific for running time parameters.
 
     <B>Example of usage</B>
     @code
@@ -361,12 +359,10 @@ public:
     facemark->fit(image, faces, landmarks);
     @endcode
 
-    TODO remove "config" from here
     */
-    virtual bool fit( InputArray image,
+    CV_WRAP virtual bool fit( InputArray image,
                       InputArray faces,
-                      InputOutputArray landmarks,
-                      void * config = 0)=0;
+                      OutputArray landmarks)=0;
 
     /** @brief Set a user defined face detector for the Facemark algorithm.
     @param detector The user defined face detector function

@@ -36,8 +36,8 @@ public:
         //! configfile stores the name of the file containing the values of training parameters
         String configfile;
     };
-    CV_WRAP static Ptr<FacemarkKazemi> create();
     static Ptr<FacemarkKazemi> create(const FacemarkKazemi::Params &parameters);
+    CV_WRAP static Ptr<FacemarkKazemi> create();
     virtual ~FacemarkKazemi();
 
     /// @brief training the facemark model, input are the file names of image list and landmark annotation
@@ -59,7 +59,7 @@ public:
     /** @brief This functions retrieves a centered and scaled face shape, according to the bounding rectangle.
     *@param image A variable of type cv::InputArray which stores the image whose landmarks have to be found
     *@param faces A variable of type cv::InputArray which stores the bounding boxes of faces found in a given image.
-    *@param landmarks A variable of type cv::InputOutputArray which stores the landmarks of all the faces found in the image
+    *@param landmarks A variable of type cv::OutputArray which stores the landmarks of all the faces found in the image
     */
     CV_WRAP virtual bool fit( InputArray image, InputArray faces, OutputArray landmarks )=0;//!< from many ROIs
     /// set the custom face detector

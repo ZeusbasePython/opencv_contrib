@@ -108,7 +108,8 @@ public:
         double width, height;
     };
 
-    static Ptr<FacemarkLBF> create(const FacemarkLBF::Params &parameters = FacemarkLBF::Params() );
+    CV_WRAP static Ptr<FacemarkLBF> create();
+    static Ptr<FacemarkLBF> create(const FacemarkLBF::Params &parameters);
     virtual ~FacemarkLBF(){};
 }; /* LBF */
 

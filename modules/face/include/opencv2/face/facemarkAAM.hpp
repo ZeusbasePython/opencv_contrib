@@ -147,8 +147,29 @@ public:
 
     };
 
+    /** @brief Fits a model.
+
+    @param image Input image.
+    @param faces A vector of cv::Rect, one per face, from previous face detection.
+    @param landmarks The detected landmark points for each faces.
+    @param config a vector of Config structs (rotation,translation,scale), one per face.
+
+    <B>Example of usage</B>
+    @code
+    Mat image = imread("image.jpg");
+    std::vector<Rect> faces;
+    std::vector<std::vector<Point2f> > landmarks;
+    facemark->fit(image, faces, landmarks);
+    @endcode
+
+    */
+    virtual bool fit( InputArray image,
+                      InputArray faces,
+                      OutputArray landmarks,
+                      const std::vector<Config> &configs)=0;
     //!<  initializer
-    static Ptr<FacemarkAAM> create(const FacemarkAAM::Params &parameters = FacemarkAAM::Params() );
+    CV_WRAP static Ptr<FacemarkAAM> create();
+    static Ptr<FacemarkAAM> create(const FacemarkAAM::Params &parameters);
     virtual ~FacemarkAAM() {}
 
 }; /* AAM */

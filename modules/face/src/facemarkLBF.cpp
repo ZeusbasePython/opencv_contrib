@@ -115,7 +115,7 @@ public:
 
 protected:
 
-    bool fit( InputArray image, InputArray faces, InputOutputArray landmarks, void * runtime_params );//!< from many ROIs
+    bool fit( InputArray image, InputArray faces, OutputArray landmarks);
     bool fitImpl( const Mat image, std::vector<Point2f> & landmarks );//!< from a face
 
     bool addTrainingSample(InputArray image, InputArray landmarks);
@@ -248,6 +248,9 @@ private:
 Ptr<FacemarkLBF> FacemarkLBF::create(const FacemarkLBF::Params &parameters){
     return Ptr<FacemarkLBFImpl>(new FacemarkLBFImpl(parameters));
 }
+Ptr<FacemarkLBF> FacemarkLBF::create(){
+    return Ptr<FacemarkLBFImpl>();
+}
 
 FacemarkLBFImpl::FacemarkLBFImpl( const FacemarkLBF::Params &parameters ) :
     faceDetector(NULL), faceDetectorData(NULL)
@@ -363,10 +366,8 @@ void FacemarkLBFImpl::training(void* parameters){
     isModelTrained = true;
 }
 
-bool FacemarkLBFImpl::fit( InputArray image, InputArray roi, InputOutputArray  _landmarks, void * runtime_params )
+bool FacemarkLBFImpl::fit( InputArray image, InputArray roi, OutputArray  _landmarks)
 {
-    CV_UNUSED(runtime_params);
-
     // FIXIT
     std::vector<Rect> & faces = *(std::vector<Rect> *)roi.getObj();
     if (faces.empty()) return false;

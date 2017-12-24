@@ -105,7 +105,8 @@ public:
 
 protected:
 
-    bool fit( InputArray image, InputArray faces, InputOutputArray landmarks, void * runtime_params);//!< from many ROIs
+    bool fit(InputArray image, InputArray faces, OutputArray landmarks);
+    bool fit(InputArray image, InputArray faces, OutputArray landmarks, const std::vector<Config> &runtime_params);//!< from many ROIs
     bool fitImpl( const Mat image, std::vector<Point2f>& landmarks,const  Mat R,const  Point2f T,const  float scale, const int sclIdx=0 );
 
     bool addTrainingSample(InputArray image, InputArray landmarks);
@@ -151,6 +152,9 @@ private:
 */
 Ptr<FacemarkAAM> FacemarkAAM::create(const FacemarkAAM::Params &parameters){
     return Ptr<FacemarkAAMImpl>(new FacemarkAAMImpl(parameters));
+}
+Ptr<FacemarkAAM> FacemarkAAM::create(){
+    return Ptr<FacemarkAAMImpl>();
 }
 
 FacemarkAAMImpl::FacemarkAAMImpl( const FacemarkAAM::Params &parameters ) :
@@ -312,7 +316,7 @@ void FacemarkAAMImpl::training(void* parameters){
     if(params.verbose) printf("Training is completed\n");
 }
 
-bool FacemarkAAMImpl::fit( InputArray image, InputArray roi, InputOutputArray _landmarks, void * runtime_params)
+bool FacemarkAAMImpl::fit( InputArray image, InputArray roi, OutputArray _landmarks, const std::vector<Config> &conf)
 {
     std::vector<Rect> & faces = *(std::vector<Rect> *)roi.getObj();
     if(faces.size()<1) return false;
@@ -322,23 +326,33 @@ bool FacemarkAAMImpl::fit( InputArray image, InputArray roi, InputOutputArray _l
     landmarks.resize(faces.size());
 
     Mat img = image.getMat();
-    if(runtime_params!=0){
 
-        std::vector<Config> conf = *(std::vector<Config>*)runtime_params;
-        if (conf.size()!=faces.size()) {
-            CV_Error(Error::StsBadArg, "Number of faces and extra_parameters are different!");
-        }
-        for(size_t i=0; i<conf.size();i++){
-            fitImpl(img, landmarks[i], conf[i].R,conf[i].t, conf[i].scale, conf[i].model_scale_idx);
-        }
-    }else{
-        Mat R =  Mat::eye(2, 2, CV_32F);
-        Point2f t = Point2f((float)(img.cols/2.0),(float)(img.rows/2.0));
-        float scale = 1.0;
+    if (conf.size()!=faces.size()) {
+        CV_Error(Error::StsBadArg, "Number of faces and extra_parameters are different!");
+    }
+    for(size_t i=0; i<conf.size();i++){
+        fitImpl(img, landmarks[i], conf[i].R,conf[i].t, conf[i].scale, conf[i].model_scale_idx);
+    }
 
-        for(unsigned i=0; i<faces.size();i++){
-            fitImpl(img, landmarks[i], R,t, scale);
-        }
+    return true;
+}
+
+bool FacemarkAAMImpl::fit( InputArray image, InputArray roi, OutputArray _landmarks)
+{
+    std::vector<Rect> & faces = *(std::vector<Rect> *)roi.getObj();
+    if(faces.size()<1) return false;
+
+    std::vector<std::vector<Point2f> > & landmarks =
+        *(std::vector<std::vector<Point2f> >*) _landmarks.getObj();
+    landmarks.resize(faces.size());
+
+    Mat img = image.getMat();
+    Mat R =  Mat::eye(2, 2, CV_32F);
+    Point2f t = Point2f((float)(img.cols/2.0),(float)(img.rows/2.0));
+    float scale = 1.0;
+
+    for(unsigned i=0; i<faces.size();i++){
+        fitImpl(img, landmarks[i], R,t, scale);
     }
 
     return true;
