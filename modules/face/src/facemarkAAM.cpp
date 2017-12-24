@@ -154,7 +154,7 @@ Ptr<FacemarkAAM> FacemarkAAM::create(const FacemarkAAM::Params &parameters){
     return Ptr<FacemarkAAMImpl>(new FacemarkAAMImpl(parameters));
 }
 Ptr<FacemarkAAM> FacemarkAAM::create(){
-    return Ptr<FacemarkAAMImpl>();
+    return Ptr<FacemarkAAMImpl>(new FacemarkAAMImpl(FacemarkAAM::Params()));
 }
 
 FacemarkAAMImpl::FacemarkAAMImpl( const FacemarkAAM::Params &parameters ) :

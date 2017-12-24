@@ -249,7 +249,7 @@ Ptr<FacemarkLBF> FacemarkLBF::create(const FacemarkLBF::Params &parameters){
     return Ptr<FacemarkLBFImpl>(new FacemarkLBFImpl(parameters));
 }
 Ptr<FacemarkLBF> FacemarkLBF::create(){
-    return Ptr<FacemarkLBFImpl>();
+    return Ptr<FacemarkLBFImpl>(new FacemarkLBFImpl(FacemarkLBF::Params()));
 }
 
 FacemarkLBFImpl::FacemarkLBFImpl( const FacemarkLBF::Params &parameters ) :

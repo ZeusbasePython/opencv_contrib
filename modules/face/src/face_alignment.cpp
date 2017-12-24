@@ -187,7 +187,7 @@ Ptr<FacemarkKazemi> FacemarkKazemi::create(const FacemarkKazemi::Params &paramet
     return Ptr<FacemarkKazemiImpl>(new FacemarkKazemiImpl(parameters));
 }
 Ptr<FacemarkKazemi> FacemarkKazemi::create(){
-    return Ptr<FacemarkKazemiImpl>();
+    return Ptr<FacemarkKazemiImpl>(new FacemarkKazemiImpl(FacemarkKazemi::Params()));
 }
 }//cv
 }//face
