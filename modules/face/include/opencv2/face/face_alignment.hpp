@@ -61,9 +61,9 @@ public:
     *@param faces A variable of type cv::InputArray which stores the bounding boxes of faces found in a given image.
     *@param landmarks A variable of type cv::OutputArray which stores the landmarks of all the faces found in the image
     */
-    CV_WRAP virtual bool fit( InputArray image, InputArray faces, OutputArray landmarks )=0;//!< from many ROIs
+    CV_WRAP virtual bool fit( InputArray image, InputArray faces, OutputArrayOfArrays landmarks )=0;//!< from many ROIs
     /// set the custom face detector
-    virtual bool setFaceDetector(bool(*f)(InputArray , OutputArray, void*), void* userData)=0;
+    virtual bool setFaceDetector(bool(*f)(InputArray , OutputArrayOfArrays, void*), void* userData)=0;
     /// get faces using the custom detector
     virtual bool getFaces(InputArray image, OutputArray faces)=0;
 };

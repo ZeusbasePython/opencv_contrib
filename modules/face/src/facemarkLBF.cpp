@@ -115,7 +115,7 @@ public:
 
 protected:
 
-    bool fit( InputArray image, InputArray faces, OutputArray landmarks);
+    bool fit( InputArray image, InputArray faces, OutputArrayOfArrays landmarks);
     bool fitImpl( const Mat image, std::vector<Point2f> & landmarks );//!< from a face
 
     bool addTrainingSample(InputArray image, InputArray landmarks);

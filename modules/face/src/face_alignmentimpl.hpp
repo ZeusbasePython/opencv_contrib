@@ -73,7 +73,7 @@ public:
     void loadModel(String fs);
     bool setFaceDetector(FN_FaceDetector f, void* userdata);
     bool getFaces(InputArray image, OutputArray faces);
-    bool fit(InputArray image, InputArray faces, OutputArray landmarks );
+    bool fit(InputArray image, InputArray faces, OutputArrayOfArrays landmarks );
     void training(String imageList, String groundTruth);
     bool training(vector<Mat>& images, vector< vector<Point2f> >& landmarks,string filename,Size scale,string modelFilename);
     // Destructor for the class.

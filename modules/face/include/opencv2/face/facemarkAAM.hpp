@@ -165,7 +165,7 @@ public:
     */
     virtual bool fit( InputArray image,
                       InputArray faces,
-                      OutputArray landmarks,
+                      OutputArrayOfArrays landmarks,
                       const std::vector<Config> &configs)=0;
     //!<  initializer
     CV_WRAP static Ptr<FacemarkAAM> create();

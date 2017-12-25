@@ -362,7 +362,7 @@ public:
     */
     CV_WRAP virtual bool fit( InputArray image,
                       InputArray faces,
-                      OutputArray landmarks)=0;
+                      OutputArrayOfArrays landmarks)=0;
 
     /** @brief Set a user defined face detector for the Facemark algorithm.
     @param detector The user defined face detector function

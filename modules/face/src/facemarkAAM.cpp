@@ -105,8 +105,8 @@ public:
 
 protected:
 
-    bool fit(InputArray image, InputArray faces, OutputArray landmarks);
-    bool fit(InputArray image, InputArray faces, OutputArray landmarks, const std::vector<Config> &runtime_params);//!< from many ROIs
+    bool fit(InputArray image, InputArray faces, OutputArrayOfArrays landmarks);
+    bool fit(InputArray image, InputArray faces, OutputArrayOfArrays landmarks, const std::vector<Config> &runtime_params);//!< from many ROIs
     bool fitImpl( const Mat image, std::vector<Point2f>& landmarks,const  Mat R,const  Point2f T,const  float scale, const int sclIdx=0 );
 
     bool addTrainingSample(InputArray image, InputArray landmarks);
